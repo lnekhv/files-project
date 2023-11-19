@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+    postgres:
+        image: postgres:10.5
+        container_name: files-database
+        hostname: files-database
+        restart: always
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+        ports:
+          - 5432:5432
+        expose:
+          - 5432
+        volumes:
+          - ./postgres-data:/var/lib/postgresql/data
+          - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+        networks:
+          - db-network
+
+networks:
+  db-network:
+    name: db-network

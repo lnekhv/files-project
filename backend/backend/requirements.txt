@@ -1,0 +1,7 @@
+pydantic==2.5.0
+fastapi==0.104.1
+starlette==0.27.0
+uvicorn==0.24.0.post1
+peewee==3.17.0
+psycopg2-binary==2.9.6
+python-multipart==0.0.6

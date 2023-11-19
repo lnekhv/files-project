@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS "File" (
+  id SERIAL PRIMARY KEY,
+  name varchar(250) UNIQUE NOT NULL,
+  data bytea NOT NULL
+);

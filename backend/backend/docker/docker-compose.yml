@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  backend:
+      image: file-backend
+      container_name: backend
+      restart: always
+      build:
+        context: ..
+        dockerfile: docker/Dockerfile
+      ports:
+          - 8000:8000
+      expose:
+        - 8000
+      networks:
+        - db-network
+
+networks:
+  db-network:
+    name: db-network
