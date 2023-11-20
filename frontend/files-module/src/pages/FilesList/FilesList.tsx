@@ -32,9 +32,10 @@ const FileList = () => {
     setIsUploadDialogOpen(true);
   };
 
-  const handleUploadDialogClose = (file: File) => {
+  const handleUploadDialogClose = (file: File | null) => {
     setIsUploadDialogOpen(false);
-    handleUploadFile(file);
+
+    if (file) handleUploadFile(file);
   };
 
   const handleUploadFile = (file: File) => {

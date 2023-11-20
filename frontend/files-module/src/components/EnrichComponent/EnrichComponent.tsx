@@ -30,6 +30,7 @@ const DataEnricher = ({ csvData, onClose }: DataEnricherProps) => {
   } = useForm();
 
   const [columns, setColumns] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const columns = csvData.split("\r\n")[0].split(",");
@@ -73,10 +74,12 @@ const DataEnricher = ({ csvData, onClose }: DataEnricherProps) => {
       });
 
       //stringlify objects in json
+      let keyExists = false;
       if (apiKeyName && keyColumnName && apiData) {
         apiData = apiData.map((apiRow: any) => {
           const newRow = Object.entries(apiRow).reduce(
             (acc: any, [key, value]: [any, any]) => {
+              keyExists = keyExists || key === apiKeyName;
               if (typeof value === "object") {
                 acc[key] = jsonToPlainText(value, jsonToStringOptions);
               } else {
@@ -91,39 +94,41 @@ const DataEnricher = ({ csvData, onClose }: DataEnricherProps) => {
         });
 
         //merge files
-        let enrichedData = jsonData.map((row) => {
-          const apiRow = apiData.find(
-            (apiRow: any) => apiRow[apiKeyName] === row[keyColumnName]
-          );
+        if (keyExists) {
+          let enrichedData = jsonData.map((row) => {
+            const apiRow = apiData.find(
+              (apiRow: any) => apiRow[apiKeyName] === row[keyColumnName]
+            );
 
-          //fill blank lines with null values
-          if (!apiRow) {
-            Object.keys(apiData[0]).forEach((apiKey) => {
-              if (!(apiKey in row)) {
-                row[apiKey] = null;
-              }
-            });
-          }
+            //fill blank lines with null values
+            if (!apiRow) {
+              Object.keys(apiData[0]).forEach((apiKey) => {
+                if (!(apiKey in row)) {
+                  row[apiKey] = null;
+                }
+              });
+            }
 
-          const mergedRow = { ...row, ...apiRow };
+            const mergedRow = { ...row, ...apiRow };
 
-          // delete apiKeyName from the merged object
-          if (apiRow) {
+            // delete apiKeyName from the merged object
             delete mergedRow[apiKeyName];
-          }
 
-          return mergedRow;
-        });
-
-        const newFile = createFile(enrichedData);
-
-        uploadFile(newFile)
-          .then((response) => {
-            onClose(response.data);
-          })
-          .catch((error) => {
-            console.error("Error uploading file:", error);
+            return mergedRow;
           });
+
+          const newFile = createFile(enrichedData);
+
+          uploadFile(newFile)
+            .then((response) => {
+              onClose(response.data);
+            })
+            .catch((error) => {
+              console.error("Error uploading file:", error);
+            });
+        } else {
+          setError("There is no such API key");
+        }
       }
     } catch (error) {
       console.error("Error fetching data from API:", error);
@@ -165,6 +170,7 @@ const DataEnricher = ({ csvData, onClose }: DataEnricherProps) => {
             {...register("apiKeyName", { required: true })}
           />
           {errors.apiKeyName && <span>This field is required</span>}
+          {error && <span>Error: {error}</span>}
         </div>
 
         <div className="buttons">
