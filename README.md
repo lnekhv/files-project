@@ -11,6 +11,7 @@
 ### Database
 
 To run database docker container locally:
+(from files-project)
 ```
 cd backend/db
 docker-compose up -d
@@ -19,7 +20,7 @@ docker-compose up -d
 
 ### Backend
 To run backend docker container locally:
-
+(from files-project)
 ```
 cd backend/backend/docker
 docker-compose up -d
@@ -28,8 +29,22 @@ docker-compose up -d
 
 ### Frontend
 To run frontend locally:
-
+(from files-project)
 ```
+cd frontend/files-module
+npm install
+npm start
+```
+
+### Full installation
+(from files-project)
+```
+cd backend/db
+docker-compose up -d
+cd ..
+cd backend/docker
+docker-compose up -d
+cd ../../..
 cd frontend/files-module
 npm install
 npm start
