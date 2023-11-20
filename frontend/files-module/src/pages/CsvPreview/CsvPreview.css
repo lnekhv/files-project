@@ -1,0 +1,41 @@
+.preview-table-container {
+  color: rgb(70, 70, 70);
+}
+
+.preview-table-container thead {
+  height: 5vh;
+  background-color: #9eb8d9;
+  color: rgb(57, 57, 57);
+}
+
+.preview-table-container tbody {
+  background-color: #eef5ff;
+}
+
+.action-button {
+  background-color: #9eb8d9;
+  border: 1px solid #9eb8d9;
+  border-radius: 5px;
+  width: 5vw;
+  height: 4vh;
+  color: rgb(57, 57, 57);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1vw;
+  justify-content: center;
+  padding: 0.5vmin;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.preview-header .MuiIconButton-root {
+  position: absolute;
+  left: 0;
+}

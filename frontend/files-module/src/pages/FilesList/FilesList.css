@@ -1,0 +1,15 @@
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.header-container .title {
+  text-align: center;
+}
+
+.header-container .upload-button {
+  position: absolute;
+  right: 10%;
+}

@@ -1,0 +1,10 @@
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1vmin;
+}
+
+.save-button {
+  width: 5vw;
+  margin: 1vmin;
+}

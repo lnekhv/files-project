@@ -1,0 +1,7 @@
+.upload-container {
+  padding: 1vmin;
+}
+
+.upload-container input[type="file"] {
+  width: 95%;
+}

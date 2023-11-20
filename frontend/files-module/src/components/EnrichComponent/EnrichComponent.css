@@ -1,0 +1,29 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  padding: 1vmax;
+}
+.content-element {
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  margin-bottom: 15px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 98%;
+}
+
+label {
+  margin-bottom: 5px;
+  font-size: 1.8vmin;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
